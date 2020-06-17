@@ -1941,18 +1941,27 @@ __webpack_require__.r(__webpack_exports__);
     return {
       mode: false,
       searchWord: '',
-      onlyWords: ['Florida', 'Alabama', 'Alaska', 'Texas'],
+      onlyWords: [],
       words: {},
       word: {},
       filteredWord: []
     };
   },
   methods: {
-    filterWords: function filterWords() {
+    index: function index() {
       var _this = this;
 
+      axios.get('/words').then(function (response) {
+        var data = response.data;
+        _this.words = data.words;
+        _this.onlyWords = data.onlyWords;
+      })["catch"]();
+    },
+    filterWords: function filterWords() {
+      var _this2 = this;
+
       this.filteredWord = this.onlyWords.filter(function (searchWord) {
-        return searchWord.toLowerCase().startsWith(_this.searchWord.toLowerCase());
+        return searchWord.toLowerCase().startsWith(_this2.searchWord.toLowerCase());
       });
     },
     setState: function setState(fWord) {
@@ -1964,7 +1973,23 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.index();
+  },
+  watch: {
+    searchWord: function searchWord() {
+      if (this.searchWord === "") {
+        return this.filteredWord = [];
+      }
+
+      this.filterWords();
+    }
+  },
+  filters: {
+    checkEmpty: function checkEmpty($val) {
+      if (this.searchWord !== '') {
+        return $val !== [] ? $val : 'No Words Found';
+      }
+    }
   }
 });
 
@@ -37513,8 +37538,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "bg-danger position-absolute top-0" }),
+  return _c("div", { staticClass: "container flex" }, [
+    _c("div", {
+      staticClass: "back-cover",
+      on: {
+        click: function($event) {
+          _vm.mode = false
+        }
+      }
+    }),
     _vm._v(" "),
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8" }, [
@@ -37543,15 +37575,12 @@ var render = function() {
                   domProps: { value: _vm.searchWord },
                   on: {
                     focus: _vm.setMode,
-                    input: [
-                      function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.searchWord = $event.target.value
-                      },
-                      _vm.filterWords
-                    ]
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.searchWord = $event.target.value
+                    }
                   }
                 }),
                 _vm._v(" "),
@@ -37574,7 +37603,7 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "my-list py-2 border-bottom text-center",
+                              "my-list py-2 border-bottom text-center text-dark",
                             on: {
                               click: function($event) {
                                 return _vm.setState(fWord)

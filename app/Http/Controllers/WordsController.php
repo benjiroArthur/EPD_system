@@ -16,8 +16,13 @@ class WordsController extends Controller
     {
         $words = Word::all();
         $onlyWords = Word::all( 'name');
+        $onlyWord = [];
+        foreach ($onlyWords as $oWord){
+            $onlyWord[] = $oWord->name;
+        }
+        sort($onlyWord);
         $data = [
-            'onlyWords' => $onlyWords,
+            'onlyWords' => $onlyWord,
             'words' => $words
         ];
         return response()->json($data);
