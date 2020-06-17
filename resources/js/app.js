@@ -8,6 +8,14 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import VueProgressBar from 'vue-progressbar';
+
+Vue.use(VueProgressBar, {
+    color: 'rgb(15,243,7)',
+    failedColor: 'red',
+    height: '10px'
+});
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -21,6 +29,38 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('home', require('./components/Home.vue').default);
+Vue.component('add-word', require('./components/AddWord.vue').default);
+
+import {
+    Form,
+    HasError,
+    AlertError,
+    AlertErrors,
+    AlertSuccess
+} from 'vform';
+
+window.Form = Form;
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
+Vue.component(AlertErrors.name, AlertErrors);
+Vue.component(AlertSuccess.name, AlertSuccess);
+
+import Swal from 'sweetalert2';
+window.Swal = Swal;
+
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+});
+window.toast = Toast;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

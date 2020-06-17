@@ -59,7 +59,7 @@ class WordsController extends Controller
      */
     public function show($id)
     {
-        $word = Word::find($id);
+        $word = Word::where('name', $id)->first();
         return response()->json($word);
     }
 
