@@ -21,6 +21,8 @@
                        </div>
                        <div v-show="word !== null">
                            <p>{{word.meaning}}</p>
+                           <br>
+                           <a href="#" class="btn btn-sm my-close d-none" @click="closeIt"><span class="fas fa-times text-danger"></span></a>
                        </div>
                    </div>
                 </div>
@@ -67,10 +69,15 @@
                 this.$Progress.start();
                 axios.get('/words/'+this.searchWord).then((response)=>{
                     this.word = response.data;
+                    $('.my-close').removeClass('d-none');
                     this.$Progress.finish();
                 }).catch((error)=>{
                     console.log(error.message);
                 })
+            },
+            closeIt(){
+                this.word = {};
+                $('.my-close').addClass('d-none');
             },
         },
         mounted() {

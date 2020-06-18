@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 class WordsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -79,14 +88,14 @@ class WordsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $word = Word::find($id);
         $word->update($request->all());
         $word = Word::find($id);
-        return response()->json($word);
+        return response('word updated successfully');
     }
 
     /**

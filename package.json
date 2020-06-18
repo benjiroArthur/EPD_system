@@ -13,6 +13,7 @@
         "@fortawesome/fontawesome-free": "^5.13.0",
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
+        "bootstrap-vue": "^2.13.1",
         "cross-env": "^7.0",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.1",
@@ -26,7 +27,9 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "bootstrap-table": "^1.16.0",
         "sweetalert2": "^9.15.1",
+        "tableexport.jquery.plugin": "^1.10.19",
         "vform": "^1.0.1",
         "vue-progressbar": "^0.7.5"
     }
