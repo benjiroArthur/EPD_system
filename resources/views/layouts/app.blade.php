@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="banner" content="{{ asset('images/banner.jpeg') }}">
 
     <title>{{ config('app.name', 'PHOTOGRAPHY DICTIONARY') }}</title>
 

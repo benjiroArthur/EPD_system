@@ -81,4 +81,11 @@ window.toast = Toast;
 
 const app = new Vue({
     el: '#app',
+    data: () => ({
+        myBanner: '',
+    }),
+    created(){
+        this.myBanner = $('meta[name = "banner"]').attr('content')
+        //Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
+    },
 });

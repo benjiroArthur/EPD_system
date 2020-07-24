@@ -3,13 +3,14 @@
         <div class="back-cover" @click="mode =false"></div>
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h6 class="text-center text-dark text-bold">PHOTOGRAPHY DICTIONARY</h6>
-                <div class="card m-3 p-3">
+                    <img :src="this.$parent.myBanner" height="100" width="auto" alt="..." class="w-100">
+                <!--<h6 class="text-center text-dark text-bold">PHOTOGRAPHY DICTIONARY</h6>-->
+                <div class="card p-3">
                     <div class="card-head bg-transparent">
                         <div class="input-group md-form form-sm form-2 pl-0">
                             <input v-model="searchWord" @focus="setMode" class="form-control my-0 py-1 red-border" autocomplete="off" type="text" placeholder="Enter Word" aria-label="Search">
-                            <div class="input-group-append bg-danger">
-                                <span class="input-group-text text-white searchButton bg-danger" id="basic-text1" @click="getMeaning"><i class="fas fa-search"></i></span>
+                            <div class="input-group-append bg-dict">
+                                <span class="input-group-text text-white searchButton" id="basic-text1" @click="getMeaning"><i class="fas fa-search bg-dict"></i></span>
                             </div>
                         </div>
                     </div>
@@ -100,3 +101,8 @@
         },
     }
 </script>
+<style lang="scss">
+    .input-group-text {
+        background-color: #0b072c !important;
+    }
+</style>
